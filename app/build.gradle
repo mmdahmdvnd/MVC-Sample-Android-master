@@ -1,0 +1,62 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 34
+    defaultConfig {
+        applicationId "com.mmd.mvcexample"
+        minSdkVersion 24
+        targetSdkVersion 34
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    namespace 'com.mmd.mvcexample'
+}
+
+//تنظیم ToolChain برای کل پروژه
+//java {
+//    toolchain {
+//        languageVersion = JavaLanguageVersion.of(11) // نسخه دلخواه جاوا، مثلاً ۸ یا ۱۱
+//    }
+//}
+
+//تنظیم ToolChain برای تست
+tasks.withType(Test).configureEach {
+    javaLauncher = javaToolchains.launcherFor {
+        languageVersion = JavaLanguageVersion.of(11) // نسخه مورد نظر، مثلاً 8، 11 یا 17
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'com.google.android.material:material:1.0.0'
+    androidTestImplementation 'androidx.test:runner:1.1.1'
+
+    // JUnit برای تست‌های واحد
+    testImplementation 'junit:junit:4.13.2'
+
+    // Mockito برای شبیه‌سازی اینترفیس‌ها
+    testImplementation 'org.mockito:mockito-core:4.8.0'
+    testImplementation 'org.mockito:mockito-inline:4.8.0'
+
+    // Espresso برای تست رابط کاربری
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-intents:3.5.1'
+
+    // AndroidX Test برای تست‌های رابط کاربری و AndroidJUnit4
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test:runner:1.5.2'
+
+    // HandlerCompat برای مدیریت Handler در تست‌ها
+    implementation 'androidx.core:core:1.10.1'
+
+    testImplementation 'org.robolectric:robolectric:4.9'
+}
